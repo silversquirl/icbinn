@@ -13,6 +13,7 @@
     ./security/apparmor.nix
     ./security/chromium-sandbox.nix
     ./smfh.nix
+    ./sysctl.nix
     ./systemd/activation.nix
     ./systemd/systemd.nix
     ./systemd/tmpfiles.nix
