@@ -103,7 +103,7 @@
     toSmfh = entry: let
       isLink = entry.mode == "symlink" || entry.mode == "direct-symlink";
     in
-      lib.mkMerge [
+      lib.mkIf entry.enable (lib.mkMerge [
         {
           inherit (entry) source;
           target = "/etc/${entry.target}";
@@ -116,7 +116,7 @@
           inherit (entry) uid gid;
           permissions = entry.mode;
         })
-      ];
+      ]);
     toSmfhConfig = name: entry: {"/etc/${name}" = toSmfh entry;};
     configs = lib.mapAttrsToList toSmfhConfig config.environment.etc;
   in
