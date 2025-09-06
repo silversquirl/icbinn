@@ -13,7 +13,7 @@ in {
     };
   };
 
-  config.icbinn.activationScripts.apt = ''
+  config.icbinn.activationScripts.apt = lib.mkIf (cfg.packages != []) ''
     apt-get update
     apt-get install -y ${lib.escapeShellArgs cfg.packages}
   '';
