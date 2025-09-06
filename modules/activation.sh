@@ -42,8 +42,8 @@ if ((DEACTIVATE)); then
 	smfh deactivate "${_smfhOldManifest:-$_smfhManifest}"
 else
 	if [[ -n "$_smfhOldManifest" ]]; then
-		smfh diff "$_smfhManifest" "$_smfhOldManifest"
+		smfh diff "$_smfhManifest" "$_smfhOldManifest" || exit
 	else
-		smfh activate "$_smfhManifest"
+		smfh activate "$_smfhManifest" || exit
 	fi
 fi
