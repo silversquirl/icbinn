@@ -7,7 +7,6 @@
   cfg = config.security.chromium-sandbox;
   name = cfg.package.passthru.sandboxExecutableName;
 in {
-  sandbox = pkgs.chromium.sandbox;
   options.security.chromium-sandbox = {
     enable = lib.mkEnableOption "chromium SUID sandbox wrapper";
     package = lib.mkOption {
