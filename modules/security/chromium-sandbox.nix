@@ -12,7 +12,7 @@ in {
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.chromium.sandbox;
-      defaultString = lib.literalExpression "pkgs.chromium.sandbox";
+      defaultText = lib.literalExpression "pkgs.chromium.sandbox";
       description = "The chromium sandbox package to use";
     };
   };
