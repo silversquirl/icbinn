@@ -23,7 +23,7 @@
 
   config = {
     environment.systemPackages = lib.mkIf config.nix.enable [config.nix.package];
-    icbinn.activationScripts.system-packages = ''
+    icbinn.activationScripts.system-packages = lib.mkIf (config.environment.systemPackages != []) ''
       ${config.nix.package}/bin/nix-env -i ${lib.escapeShellArgs config.environment.systemPackages}
     '';
   };
