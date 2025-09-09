@@ -1,7 +1,7 @@
 {
+  config,
   pkgs,
   lib,
-  config,
   ...
 }: let
   cfg = config.security.apparmor;
@@ -65,9 +65,12 @@ in {
     environment.etc = lib.mapAttrs' apparmorProfile cfg.policies;
     # TODO: includes
 
-    icbinn.activationScripts.apparmor = {
-      text = "systemctl reload apparmor";
-      supportsDeactivation = true;
-    };
+    icbinn.activationScripts.apparmor = let
+      policies = lib.filterAttrs (k: v: lib.hasPrefix k "apparmor.d/") config.environment.etc;
+      anyEnabled = builtins.any (x: x.enable) (builtins.attrValues policies);
+    in
+      lib.mkIf anyEnabled {
+        text = "systemctl reload apparmor";
+      };
   };
 }
