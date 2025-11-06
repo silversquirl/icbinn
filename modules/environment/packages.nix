@@ -26,5 +26,8 @@
     icbinn.activationScripts.system-packages = lib.mkIf (config.environment.systemPackages != []) ''
       ${config.nix.package}/bin/nix-env -i ${lib.escapeShellArgs config.environment.systemPackages}
     '';
+    systemd.tmpfiles.settings."00-current-system" = {
+      "/run/current-system/sw"."L+" = {argument = "${builtins.dirOf builtins.storeDir}/var/nix/profiles/default";};
+    };
   };
 }
